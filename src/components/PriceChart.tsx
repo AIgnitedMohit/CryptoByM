@@ -33,18 +33,6 @@ export const PriceChart = ({ chartType, setChartType, chartData }: PriceChartPro
 
   const renderChart = () => {
     switch (chartType) {
-      case "candlestick":
-        return (
-          <BarChart {...commonProps}>
-            <XAxis dataKey="time" {...commonAxisProps} />
-            <YAxis {...commonAxisProps} tickFormatter={(value) => `$${value.toFixed(2)}`} />
-            <Tooltip {...commonTooltipStyle} />
-            <Bar 
-              dataKey="price" 
-              fill="#FF5252"
-            />
-          </BarChart>
-        );
       case "area":
         return (
           <AreaChart {...commonProps}>
@@ -91,10 +79,6 @@ export const PriceChart = ({ chartType, setChartType, chartData }: PriceChartPro
           <div className="flex items-center space-x-2">
             <RadioGroupItem value="bar" id="bar" />
             <Label htmlFor="bar" className="font-mono">Bar</Label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <RadioGroupItem value="candlestick" id="candlestick" />
-            <Label htmlFor="candlestick" className="font-mono">Candlestick</Label>
           </div>
         </RadioGroup>
       </div>
