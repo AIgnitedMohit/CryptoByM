@@ -1,14 +1,23 @@
 import { useQuery } from "@tanstack/react-query";
 import { getTopAssets, formatPrice, formatMarketCap, formatPercent } from "../services/api";
 import { useNavigate } from "react-router-dom";
+import { Input } from "@/components/ui/input";
+import { useState } from "react";
 
 export const AssetsList = () => {
   const navigate = useNavigate();
+  const [searchQuery, setSearchQuery] = useState("");
+  
   const { data: assets, isLoading, error } = useQuery({
     queryKey: ["assets"],
     queryFn: getTopAssets,
     refetchInterval: 30000, // Refetch every 30 seconds
   });
+
+  const filteredAssets = assets?.filter((asset) =>
+    asset.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    asset.symbol.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   if (isLoading) {
     return (
@@ -32,6 +41,15 @@ export const AssetsList = () => {
 
   return (
     <div className="w-full p-4">
+      <div className="mb-6">
+        <Input
+          type="text"
+          placeholder="Search by name or symbol..."
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className="max-w-md font-mono border-4 border-brutal-black focus-visible:ring-0 focus-visible:ring-offset-0"
+        />
+      </div>
       <div className="overflow-x-auto">
         <table className="w-full border-collapse">
           <thead>
@@ -44,7 +62,7 @@ export const AssetsList = () => {
             </tr>
           </thead>
           <tbody>
-            {assets?.map((asset) => (
+            {filteredAssets?.map((asset) => (
               <tr
                 key={asset.id}
                 onClick={() => navigate(`/asset/${asset.id}`)}
