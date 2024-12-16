@@ -1,4 +1,4 @@
-import { LineChart, Line, AreaChart, Area, BarChart, Bar, CandlestickChart, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 
@@ -35,15 +35,15 @@ export const PriceChart = ({ chartType, setChartType, chartData }: PriceChartPro
     switch (chartType) {
       case "candlestick":
         return (
-          <CandlestickChart {...commonProps}>
+          <BarChart {...commonProps}>
             <XAxis dataKey="time" {...commonAxisProps} />
             <YAxis {...commonAxisProps} tickFormatter={(value) => `$${value.toFixed(2)}`} />
             <Tooltip {...commonTooltipStyle} />
-            <Bar
-              dataKey="price"
-              fill={(entry) => (entry.open > entry.close ? "#FF5252" : "#4CAF50")}
+            <Bar 
+              dataKey="price" 
+              fill="#FF5252"
             />
-          </CandlestickChart>
+          </BarChart>
         );
       case "area":
         return (
