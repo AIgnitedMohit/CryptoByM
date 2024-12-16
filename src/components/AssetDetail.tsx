@@ -38,24 +38,28 @@ export const AssetDetail = () => {
   }));
 
   return (
-    <div className="container mx-auto p-4">
-      <button
-        onClick={() => navigate("/")}
-        className="mb-8 px-6 py-3 font-mono text-lg border-4 border-brutal-black hover:bg-brutal-black hover:text-brutal-white transition-colors"
-      >
-        ← Back
-      </button>
+    <div className="min-h-screen bg-gray-50">
+      <div className="container mx-auto px-4 py-8">
+        <button
+          onClick={() => navigate("/")}
+          className="mb-8 px-6 py-2 text-sm font-mono text-gray-600 hover:text-gray-900 transition-colors flex items-center gap-2"
+        >
+          ← Back to list
+        </button>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-        <div className="space-y-6">
-          <AssetHeader asset={asset} />
-          <AssetStats asset={asset} />
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+          <div className="space-y-8">
+            <AssetHeader asset={asset} />
+            <AssetStats asset={asset} />
+          </div>
+          <div className="bg-white rounded-lg shadow-sm p-8 border border-gray-100">
+            <PriceChart
+              chartType={chartType}
+              setChartType={setChartType}
+              chartData={chartData}
+            />
+          </div>
         </div>
-        <PriceChart
-          chartType={chartType}
-          setChartType={setChartType}
-          chartData={chartData}
-        />
       </div>
     </div>
   );
