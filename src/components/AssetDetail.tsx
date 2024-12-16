@@ -5,6 +5,7 @@ import { LineChart, Line, AreaChart, Area, BarChart, Bar, XAxis, YAxis, Tooltip,
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Label } from "@/components/ui/label";
 import { useState } from "react";
+import { ExternalLink } from "lucide-react";
 
 export const AssetDetail = () => {
   const { id } = useParams();
@@ -119,9 +120,20 @@ export const AssetDetail = () => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div className="space-y-6">
           <div className="border-4 border-brutal-black p-6">
-            <h1 className="text-4xl font-mono font-bold mb-2">
-              {asset.name} ({asset.symbol})
-            </h1>
+            <div className="flex items-center gap-2">
+              <h1 className="text-4xl font-mono font-bold mb-2">
+                {asset.name} ({asset.symbol})
+              </h1>
+              <a
+                href={`https://${asset.id}.org`}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center hover:text-brutal-red transition-colors"
+                title="Visit official website"
+              >
+                <ExternalLink size={24} />
+              </a>
+            </div>
             <p className="text-6xl font-mono font-bold mb-4">
               {formatPrice(asset.priceUsd)}
             </p>
